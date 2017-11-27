@@ -13,10 +13,10 @@ output_file=open('mopatrol2','w')
 writer=csv.writer(output_file)
 url="https://www.mshp.dps.missouri.gov/HP68/search.jsp"
 html=urllib2.urlopen(url).read()
-soup=BeautifulSoup(html,'html.parser')
+soup=BeautifulSoup(html,"html.parser")
 table=soup.find('table',{'class':'accidentOutput'})
 row_list=table.find_all('tr')
 for row in row_list:
 	cell_list=row.find_all('td')
-	data=[cell.text for cell in cell_list]
+	data=[cell.text.encode('utf-8').strip() for cell in cell_list]
 	writer.writerow(data)
